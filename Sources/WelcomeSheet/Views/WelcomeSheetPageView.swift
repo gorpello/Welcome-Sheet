@@ -47,15 +47,26 @@ struct WelcomeSheetPageView: View {
                     
                     VStack(alignment: .midIcons, spacing: 30) {
                         ForEach(page.rows) { row in
-                            HStack(spacing: 17.5) {
-                                row.image
-                                    .renderingMode(.template)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(row.accentColor ?? Color.accentColor)
-                                    .frame(width: 37, height: 37)
-                                    .alignmentGuide(.midIcons) { d in d[HorizontalAlignment.center] }
-                                    .accessibility(hidden: true)
+                            HStack(alignment: .center, spacing: 17.5) {
+                                if #available(iOS 16.0, *) {
+                                    row.image
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(row.accentColor ?? Color.accentColor)
+                                        .frame(width: 37, height: 37)
+                                        .alignmentGuide(.midIcons) { d in d[HorizontalAlignment.center] }
+                                        .accessibility(hidden: true)
+                                } else {
+                                    row.image
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(row.accentColor ?? Color.accentColor)
+                                        .frame(width: 37, height: 37)
+                                        .alignmentGuide(.midIcons) { d in d[HorizontalAlignment.center] }
+                                        .accessibility(hidden: true)
+                                }
                                 
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(row.title)
@@ -63,10 +74,12 @@ struct WelcomeSheetPageView: View {
                                         .lineLimit(2)
                                         .fixedSize(horizontal: false, vertical: true)
                                     
-                                    Text(row.content)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                        .fixedSize(horizontal: false, vertical: true)
+                                    if !row.content.isEmpty {
+                                        Text(row.content)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
                                 }
                                 
                                 Spacer()
@@ -151,4 +164,27 @@ struct WelcomeSheetPageView: View {
         )
         .edgesIgnoringSafeArea(.top)
     }
+}
+
+#Preview {
+    WelcomeSheetPageView(
+        page: WelcomeSheetPage(title: "Welcome to\nOutsoon", rows: [
+            WelcomeSheetPageRow(imageSystemName: "magnifyingglass",
+                                title: "Search through the list for the upcoming movies.",
+                                content: ""),
+            
+            WelcomeSheetPageRow(imageSystemName: "clock.fill",
+                                title: "Add it to your countdowns.",
+                                content: ""),
+            
+            WelcomeSheetPageRow(imageSystemName: "popcorn.fill",
+                                title: "Get the widget and never miss the movie release date!",
+                                content: "")
+        ],
+                               accentColor: .gray,
+                               mainButtonTitle: "Start"
+                              ),
+        restPages: [],
+        onDismiss: {}
+    )
 }
