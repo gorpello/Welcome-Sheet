@@ -60,67 +60,8 @@ struct ContentView: View {
 - `preferredColorScheme` - Overrides the default color scheme.
 - `pages` - Array of pages to be displayed chronologically.
 
-# UIKit  
-To create a welcome sheet in UIKit create `WelcomeSheetController` and present it from your ViewController.
-
-```Swift
-class ViewController: UIViewController {
-
-    @IBOutlet weak var showSheetButton: UIButton!
-
-    let pages = [
-        WelcomeSheetPage(title: "Welcome to Welcome Sheet", rows: [
-            WelcomeSheetPageRow(imageSystemName: "rectangle.stack.fill.badge.plus",
-                                title: "Quick Creation",
-                                content: "It's incredibly intuitive. Simply declare an array of pages filled with content."),
-            
-            WelcomeSheetPageRow(imageSystemName: "slider.horizontal.3",
-                                title: "Highly Customisable",
-                                content: "Match sheet's appearance to your app, link buttons, perform actions after dismissal."),
-            
-            WelcomeSheetPageRow(imageSystemName: "ipad.and.iphone",
-                                title: "Works out of the box",
-                                content: "Don't worry about various screen sizes. It will look gorgeous on every iOS device.")
-        ])
-    ]
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        showSheetButton.addTarget(self, action: #selector(showSheet), for: .touchUpInside)
-    }
-
-    @objc func showSheet() {
-        let sheetVC = WelcomeSheetController()
-        sheetVC.pages = pages
-        sheetVC.onDismiss = sheetDismissed
-
-        present(sheetVC, animated: true)
-    }
-
-    func sheetDismissed() {
-        print("Sheet dismissed")
-    }
-}
-```
-
-## WelcomeSheetController
-`WelcomeSheetController` controller used to create, configure and present the sheet.
-
-```Swift
-let sheetVC = WelcomeSheetController()
-sheetVC.pages = pages
-sheetVC.onDismiss = { /* Run this code when sheet is dismissed */ }
-sheetVC.isModalInPresentation = true
-
-present(sheetVC, animated: true)
-```
-- `pages` - Array of pages to be displayed chronologically.
-- `onDismiss` - Closure called after sheet's dismissal.
-- `isModalInPresentation` - When set to `true` disables sheet's swipe to dismiss gesture.
-
 # Models
-Objects used to configure sheets. Each model has also a set of UIKit data initializers.
+Objects used to configure sheets.
 
 ## WelcomeSheetPage
 
@@ -197,12 +138,6 @@ You can decode pages from JSON.
 
 **Note:** `imageName` can store asset catalogue image name or SF Symbol name.
 
-## UIKit Storyboards support
-You can configure your Welcome Sheet without writing a single line of code.
-
-![Configuring Welcome Sheet from a Storyboard](Documentation/UIKit/Resources/Teaser.png)
-
-For a step-by-step guide on how to configure by storyboards, please see the [Documentation](Documentation/UIKit/Readme.md)
 
 ## Installation
 
