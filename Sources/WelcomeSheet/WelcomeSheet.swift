@@ -20,18 +20,7 @@ struct WelcomeSheet: ViewModifier {
             .sheet(isPresented: $showSheet) {
                 WelcomeSheetView(pages: pages, onDismiss: getOnDismiss())
                     .interactiveDismissDisabled(isSlideToDismissDisabled)
-            }
-//        (
-                
-//                WelcomeSheetView(pages: pages, onDismiss: getOnDismiss()
-                
-//                ModalWelcomeSheetUIViewControllerRepresentable(
-//                    show: showSheet,
-//                    isSlideToDismissDisabled: isSlideToDismissDisabled,
-//                    preferredColorScheme: preferredColorScheme,
-//                    welcomeSheetView: WelcomeSheetView(pages: pages, onDismiss: getOnDismiss())
-//                )
-            
+            }            
     }
     
     func getOnDismiss() -> () -> Void {
