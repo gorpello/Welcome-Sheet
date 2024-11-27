@@ -17,7 +17,14 @@ struct WelcomeSheet: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .background(ModalWelcomeSheetUIViewControllerRepresentable(show: showSheet, isSlideToDismissDisabled: isSlideToDismissDisabled, preferredColorScheme: preferredColorScheme, welcomeSheetView: WelcomeSheetView(pages: pages, onDismiss: getOnDismiss())))
+            .background(
+                ModalWelcomeSheetUIViewControllerRepresentable(
+                    show: showSheet,
+                    isSlideToDismissDisabled: isSlideToDismissDisabled,
+                    preferredColorScheme: preferredColorScheme,
+                    welcomeSheetView: WelcomeSheetView(pages: pages, onDismiss: getOnDismiss())
+                )
+            )
     }
     
     func getOnDismiss() -> () -> Void {
@@ -30,7 +37,13 @@ struct WelcomeSheet: ViewModifier {
 
 public extension View {
     /// Presents Welcome Sheet with given pages when a binding to a Boolean value that you provide is true.
-    func welcomeSheet(isPresented showSheet: Binding<Bool>, onDismiss: @escaping () -> Void = {}, isSlideToDismissDisabled: Bool = false, preferredColorScheme: ColorScheme? = nil, pages: [WelcomeSheetPage]) -> some View {
+    func welcomeSheet(
+        isPresented showSheet: Binding<Bool>,
+        isSlideToDismissDisabled: Bool = false,
+        preferredColorScheme: ColorScheme? = nil,
+        pages: [WelcomeSheetPage],
+        onDismiss: @escaping () -> Void = {}
+    ) -> some View {
         modifier(WelcomeSheet(showSheet: showSheet, pages: pages, onDismiss: onDismiss, isSlideToDismissDisabled: isSlideToDismissDisabled, preferredColorScheme: preferredColorScheme))
     }
 }

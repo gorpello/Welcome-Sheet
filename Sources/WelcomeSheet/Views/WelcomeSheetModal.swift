@@ -49,12 +49,8 @@ struct ModalWelcomeSheetUIViewControllerRepresentable: UIViewControllerRepresent
     let preferredColorScheme: ColorScheme?
     let welcomeSheetView: WelcomeSheetView
     
-    var userInterfaceStyle: UIUserInterfaceStyle? {        
-        if preferredColorScheme == .dark {
-            return .dark
-        } else {
-            return .light
-        }
+    var userInterfaceStyle: UIUserInterfaceStyle? {
+        preferredColorScheme == .dark ? .dark : .light
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ModalWelcomeSheetUIViewControllerRepresentable>) -> ModalWelcomeSheetUIViewController {
